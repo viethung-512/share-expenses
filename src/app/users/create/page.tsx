@@ -9,7 +9,8 @@ import { UserForm } from "@/app/users/create/UserForm";
 import { Button } from "@/components/button";
 
 export default function CreateUserPage() {
-  const { mutateAsync: createUser } = useCreateUser();
+  const { mutateAsync: createUser, isPending: createUserLoading } =
+    useCreateUser();
   const formMethods = useForm<CreateUserPlaceholderInput>({
     defaultValues: {
       username: "",
@@ -28,7 +29,14 @@ export default function CreateUserPage() {
           className={"flex flex-col gap-2"}
         >
           <UserForm />
-          <Button type="submit">Create</Button>
+          <Button
+            type="submit"
+            variant={"contained"}
+            color={"success"}
+            isLoading={createUserLoading}
+          >
+            Create
+          </Button>
         </form>
       </FormProvider>
     </DetailsPageWrapper>

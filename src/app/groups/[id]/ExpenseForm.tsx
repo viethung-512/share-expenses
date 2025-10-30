@@ -36,17 +36,20 @@ const ExpenseForm: FC<ExpenseFormProps> = () => {
       />
 
       <HookFormInputSingleSelectUser
-        fieldName={"payerId"}
+        fieldName={"payer"}
         label={"Payer"}
         groupId={watch("groupId")}
       />
       <HookFormInputMultipleSelectUser
-        fieldName={"memberIdsInvolved"}
+        fieldName={"membersInvolved"}
         label={"Members Involved"}
         groupId={watch("groupId")}
       />
-      <HookFormInputSingleSelectGroup fieldName={"groupId"} label={"Group"} />
-
+      <HookFormInputSingleSelectGroup
+        fieldName={"group"}
+        label={"Group"}
+        isDisabled={true}
+      />
       <HookFormInputText
         fieldName={"description"}
         label={"Description"}

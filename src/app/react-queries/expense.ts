@@ -4,13 +4,16 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { REACT_QUERY_KEYS } from "@/utils/constants";
 
 import { CreateExpenseInput } from "@/types/expense.type";
-import { expenseService } from "@/services/expense.service";
+import {
+  expenseService,
+  FilterExpensesInput,
+} from "@/services/expense.service";
 import { useRouter } from "next/navigation";
 
-export function useFetchExpenses() {
+export function useFetchExpenses(filters?: FilterExpensesInput) {
   return useQuery({
-    queryKey: [REACT_QUERY_KEYS.EXPENSES],
-    queryFn: async () => expenseService.fetchAll(),
+    queryKey: [REACT_QUERY_KEYS.EXPENSES, filters],
+    queryFn: async () => expenseService.fetchAll(filters),
   });
 }
 
@@ -27,7 +30,7 @@ export function useCreateExpense() {
   const queryClient = useQueryClient();
 
   return useMutation<unknown, Error, CreateExpenseInput>({
-    mutationFn: async (input) => expenseService.create(input),
+    mutationFn: async (input) => expenseService.createExpense(input),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: [REACT_QUERY_KEYS.EXPENSES],

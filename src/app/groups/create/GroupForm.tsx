@@ -18,7 +18,7 @@ export const GroupForm: FC<GroupFormProps> = () => {
         placeholder={"Enter name"}
       />
       <HookFormInputMultipleSelectUser
-        fieldName={"memberIds"}
+        fieldName={"members"}
         label={"Members"}
       />
     </div>

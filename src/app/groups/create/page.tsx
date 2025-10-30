@@ -11,14 +11,16 @@ import { DetailsPageWrapper } from "@/components/details-page-wrapper";
 import { AuthContext } from "@/context/auth.context";
 
 export default function CreateGroupPage() {
-  const { mutateAsync: createGroup } = useCreateGroup();
+  const { mutateAsync: createGroup, isPending: createGroupLoading } =
+    useCreateGroup();
   const { user } = useContext(AuthContext);
 
   const formMethods = useForm<CreateGroupInput>({
     defaultValues: {
       name: "",
-      memberIds: [],
+      members: [],
       createdByUserId: user?.id,
+      totalExpenses: 0,
     },
   });
 
@@ -31,7 +33,13 @@ export default function CreateGroupPage() {
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(onSubmit)}>
           <GroupForm />
-          <Button className={"mt-2 w-full"} type={"submit"}>
+          <Button
+            className={"mt-2 w-full"}
+            type={"submit"}
+            variant={"contained"}
+            color={"success"}
+            isLoading={createGroupLoading}
+          >
             Submit new group
           </Button>
         </form>

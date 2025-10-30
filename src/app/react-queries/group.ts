@@ -26,7 +26,7 @@ export function useCreateGroup() {
   const queryClient = useQueryClient();
 
   return useMutation<unknown, Error, CreateGroupInput>({
-    mutationFn: async (input) => groupService.create(input),
+    mutationFn: async (input) => groupService.createGroup(input),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: [REACT_QUERY_KEYS.GROUPS],

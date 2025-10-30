@@ -1,3 +1,8 @@
+import {
+  MultiSelectOption,
+  SingleSelectOption,
+} from "@/types/input-select.type";
+
 export type Expense = {
   id: string;
   amount: number;
@@ -8,4 +13,12 @@ export type Expense = {
   memberIdsInvolved: string[];
   description?: string;
 };
-export type CreateExpenseInput = Omit<Expense, "id">;
+
+export type CreateExpenseInput = Omit<
+  Expense,
+  "id" | "payerId" | "groupId" | "memberIdsInvolved"
+> & {
+  payer: SingleSelectOption | null;
+  group: SingleSelectOption | null;
+  membersInvolved?: MultiSelectOption;
+};

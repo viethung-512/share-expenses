@@ -19,7 +19,7 @@ export abstract class BaseAdapter<T extends object> {
   async getDoc(id: string): Promise<T | null> {
     const docRef = this.getDocRef(id);
     const docSnap = await docRef.get();
-    return docSnap.exists ? (docSnap.data() as T) : null;
+    return docSnap.exists ? { id: docSnap.id, ...(docSnap.data() as T) } : null;
   }
 
   async getList(filters?: FilterListInput<T>): Promise<(T & { id: string })[]> {

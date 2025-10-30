@@ -15,14 +15,14 @@ export const GET: RouteHandler = async (_request) => {
   if (params.query.groupId) {
     const groupId = params.query.groupId as string;
     const group = await groupAdapter.getDoc(groupId);
-    if (group && group.memberIds) {
-      memberIdsInGroup.push(...group?.memberIds);
+    if (group && group.members) {
+      memberIdsInGroup.push(...group?.members?.map((member) => member.id));
     }
   }
 
   Object.keys(params.query).forEach((paramKey) => {
     const paramValue = params.query[paramKey];
-    if (paramKey === "groupId") {
+    if (paramKey === "groupId" && memberIdsInGroup.length > 0) {
       filters["id"] = {
         operation: "in",
         value: memberIdsInGroup,

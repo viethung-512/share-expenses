@@ -5,12 +5,12 @@ import { REACT_QUERY_KEYS } from "@/utils/constants";
 
 import { CreateUserPlaceholderInput } from "@/types/user.type";
 import { useRouter } from "next/navigation";
-import { userService } from "@/services/user.service";
+import { FilterUsersInput, userService } from "@/services/user.service";
 
-export function useFetchUsers() {
+export function useFetchUsers(filters?: FilterUsersInput) {
   return useQuery({
-    queryKey: [REACT_QUERY_KEYS.USERS],
-    queryFn: async () => userService.fetchAll(),
+    queryKey: [REACT_QUERY_KEYS.USERS, filters],
+    queryFn: async () => userService.fetchAll(filters),
   });
 }
 
